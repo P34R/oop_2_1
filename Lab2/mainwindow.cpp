@@ -171,7 +171,7 @@ void MainWindow::on_listWidget_timer_itemDoubleClicked(QListWidgetItem *item)
     QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this,
                                  "Choose action",
-                                 "Press Yes to add timer, No to add clock",
+                                 "Press Yes delete timer, No to return",
                                  QMessageBox::Yes|QMessageBox::No);
    if (reply == QMessageBox::Yes) {
                if (item->text()!="00:00:00"){
