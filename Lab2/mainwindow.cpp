@@ -4,7 +4,8 @@
 #include <QTimer>
 #include <QTime>
 #include <QDebug>
-#include <QtMultimedia/QMediaPlayer>
+#include <QtMultimedia/QSound>
+#include<QtMultimedia/QMediaPlayer>
 #include <QWidget>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,7 +24,11 @@ void MainWindow::tim_end(){
     if (!ui->checkBox->isChecked()){
     QMessageBox ent;
     ent.setText("Timer ends");
-    QApplication::beep();
+    QMediaPlayer sound(this);
+    sound.setMedia(QUrl::fromLocalFile("/"+ ui->comboBox->currentText() +".mp3"));
+    sound.setVolume(50);
+    sound.play();
+//    QApplication::beep();
     ent.exec();
     }
 
@@ -110,13 +115,16 @@ void MainWindow::starttimer(int ms){
     connect(timer,SIGNAL(timeout()),this,SLOT(tim_end()));
     timer->setSingleShot(1);
     timer->start(ms);
-
 }
 void MainWindow::clock_ends(){
     if (!ui->checkBox->isChecked()){
     QMessageBox ent2;
+    QMediaPlayer sound(this);
+    sound.setMedia(QUrl::fromLocalFile("/"+ ui->comboBox->currentText() +".mp3"));
+    sound.setVolume(50);
+    sound.play();
     ent2.setText("Wake up");
-    QApplication::beep();
+//    QApplication::beep();
     ent2.exec();
     }
 }
@@ -156,4 +164,25 @@ void MainWindow::on_pushButton_clicked()
         ent.exec();
     }
 
+}
+
+void MainWindow::on_listWidget_timer_itemDoubleClicked(QListWidgetItem *item)
+{
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::question(this,
+                                 "Choose action",
+                                 "Press Yes to add timer, No to add clock",
+                                 QMessageBox::Yes|QMessageBox::No);
+   if (reply == QMessageBox::Yes) {
+               if (item->text()!="00:00:00"){
+                   QMessageBox ent2;
+                   ent2.setText("Wait until it finished");
+                   QApplication::beep();
+                   ent2.exec();
+               }
+               else
+               ui->listWidget_timer->takeItem(item->listWidget()->currentRow());
+               } else if (reply == QMessageBox::No) {
+                    // if no then do nothing, don't write anything here
+               }
 }

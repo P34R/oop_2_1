@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QWidget>
+#include<QListWidget>
+#include<QListWidgetItem>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -28,6 +31,7 @@ private slots:
     void tim_end();
     void on_pushButton_clicked();
 
+    void on_listWidget_timer_itemDoubleClicked(QListWidgetItem *item);
 private:
     Ui::MainWindow *ui;
 };
