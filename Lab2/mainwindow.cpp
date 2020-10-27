@@ -229,17 +229,20 @@ void MainWindow::on_listWidget_timer_itemDoubleClicked(QListWidgetItem *item)
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    if (ui->listWidget_timer->item(ui->listWidget_timer->currentRow())->text()!="00:00:00")
+    if (ui->listWidget_timer->count()==0) return;
+    else if (ui->listWidget_timer->item(ui->listWidget_timer->currentRow())->text()!="00:00:00")
     active[ui->listWidget_timer->currentRow()]=1;
 }
 
 void MainWindow::on_listWidget_timer_itemChanged(QListWidgetItem *item)
 {
+
     if (ui->listWidget_timer->count()==0) timer_decrease->stop();
 }
 
 void MainWindow::on_pushButton_3_clicked()
 {
+    if (ui->listWidget_timer->count()==0) return;
     if (ui->listWidget_timer->item(ui->listWidget_timer->currentRow())->text()!="00:00:00")
     active[ui->listWidget_timer->currentRow()]=0;
 }
